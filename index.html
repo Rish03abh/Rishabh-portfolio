@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <!-- Specifies the character encoding for the document -->
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="profile.png" />
+    <!-- Ensures the website is responsive on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title displayed on the browser tab -->
+    <title>Rishabh Kanungo - Portfolio</title>
+
+    <!-- Tailwind CSS library for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Typed.js for the typing effect in text -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+    <!-- Custom font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enables dark mode support
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'], // Adds Poppins font family
+                    },
+                    colors: {
+                        primary: '#3B82F6', // Main blue color
+                        secondary: '#10B981', // Secondary green color
+                        accent: '#F59E0B',   // Accent yellow color
+                        light: '#F3F4F6',   // Light background
+                        dark: '#111827',    // Dark background
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out', // Smooth fade-in effect
+                        'slide-up': 'slideUp 0.5s ease-out', // Slide-up animation
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        /* Custom floating animation for smooth movement */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .project-card {
+            background: linear-gradient(to top right, #49bbeb, #1f8dd5, #025dde);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            background-color: #264aae;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1e3a8a;
+        }
+    </style>
+</head>
+
+<body
+    class=" w-full md:w-full  font-poppins bg-gradient-to-r from-gray-50 via-red-100 to-green-200 dark:from-gray-900 dark:via-gray-700 dark:to-black text-gray-800 dark:text-gray-200 transition-all duration-500 ease-in-out">
+    <!-- Navigation Bar -->
+    <nav
+        class="w-full bg-gradient-to-r from-blue-700 via-purple-800 to-purple-700 dark:from-gray-800 dark:to-black shadow-lg z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-white">Rishabh Kanungo</a>
+                </div>
+
+                <!-- Desktop Navigation + Dark Mode Toggle -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#profile"
+                        class="text-white hover:text-yellow-300 transition-colors duration-300">Profile</a>
+                    <a href="#projects"
+                        class="text-white hover:text-yellow-300 transition-colors duration-300">Projects</a>
+                    <a href="#about" class="text-white hover:text-yellow-300 transition-colors duration-300">About</a>
+                    <a href="#resume" class="text-white hover:text-yellow-300 transition-colors duration-300">Resume</a>
+                    <a href="#skills" class="text-white hover:text-yellow-300 transition-colors duration-300">Skills</a>
+                    <a href="#contact"
+                        class="text-white hover:text-yellow-300 transition-colors duration-300">Contact</a>
+
+                    <!-- Dark Mode Toggle (For Desktop) -->
+                    <button id="darkModeToggleDesktop"
+                        class="p-2 rounded-full bg-green-500 dark:bg-yellow-500 transition-colors duration-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Controls (Dark Mode + Hamburger) -->
+                <div class="flex items-center md:hidden space-x-4">
+                    <!-- Dark Mode Toggle (For Mobile - Left) -->
+                    <button id="darkModeToggleMobile"
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-green-500 dark:bg-yellow-500 transition-colors duration-300">
+                        <i class="fas fa-moon dark:hidden text-xl"></i>
+                        <i class="fas fa-sun hidden dark:inline text-xl"></i>
+                    </button>
+
+
+                    <!-- Hamburger Menu (Right) -->
+                    <button id="menuToggle" class="text-white text-2xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900 text-white absolute w-full top-16 left-0 shadow-lg">
+
+            <a href="#profile" class="block px-4 py-3 hover:bg-gray-700">Profile</a>
+            <a href="#projects" class="block px-4 py-3 hover:bg-gray-700">Projects</a>
+            <a href="#about" class="block px-4 py-3 hover:bg-gray-700">About</a>
+            <a href="#resume" class="block px-4 py-3 hover:bg-gray-700">Resume</a>
+            <a href="#skills" class="block px-4 py-3 hover:bg-gray-700">Skills</a>
+            <a href="#contact" class="block px-4 py-3 hover:bg-gray-700">Contact</a>
+        </div>
+    </nav>
+
+
+
+    <!-- Header Section -->
+    <header id="profile"
+        class="pt-32 pb-20 px-4 md:px-0 bg-gradient-to-r from-purple-600 via-purple-800 to-purple-900 dark:from-gray-900 dark:via-gray-800 dark:to-black">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+            <!-- Left Content: Introduction Text -->
+            <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">
+                    Hi, I'm <span class="text-yellow-300">Rishabh Kanungo</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl mb-6 text-yellow-100">
+                    I'm a <span class="text-yellow-300 font-semibold role"></span>
+                </h2>
+                <p class="text-lg mb-8 text-white">
+                    Passionate about creating beautiful and functional web experiences. Let's build something amazing together!
+                </p>
+                <!-- Contact Button -->
+                <a href="#contact" class="bg-yellow-400 hover:bg-yellow-500 dark:bg-green-500 dark:hover:bg-green-600 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-full transition-colors duration-300 inline-block">
+                    Get in Touch
+                </a>
+            </div>
+            <!-- Right Content: Profile Picture -->
+            <div class="md:w-1/2 float">
+                <img src="Rishabh.jpeg" alt="Rishabh Kanungo" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover mx-auto shadow-lg border-4 border-white dark:border-gray-700">
+            </div>
+        </div>
+    </header>
+
+
+    
+
+
+
+ <!-- projects -->
+    
+
+ <section id="projects" class="py-20 bg-white dark:bg-gray-800 transition-colors duration-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">My Projects</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Always visible projects -->
+            <div class="project-card">
+                <img src="passop.png" alt="Passop - Password Manager" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">PassOP - Password Manager</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        stores and handles users passwords from different services.
+                    </p>
+                    <a href="https://passop-passmanager.vercel.app/" class="btn">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="weather.png" alt="Weather.com" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Weather.com</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">This weather.com site helps people to check the
+                        weather.</p>
+                    <a href="https://rish03abh.github.io/weather.com/" class="btn">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="itask.png" alt="iTask - todo Manager" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">iTask - todo Manager</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">It is the website where we write and save upcoming
+                        task.</p>
+                    <a href="https://itask-todomanager.vercel.app/" class="btn">View Project</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden projects (Initially hidden) -->
+        <div id="moreProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden py-8">
+            <div class="project-card">
+                <img src="flappy.png" alt="Flappy-Bird Game" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Flappy-Bird Game</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Enjoy Game ,Controls - (Space key for up and
+                        restart)
+
+                    </p>
+                    <a href="https://rish03abh.github.io/Flappy-Bird/" class="btn">View Project</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="calculator.png" alt="Scientific Calculator" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Scientific Calculator</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">In this calculator you perform all type of
+                        operations.</p>
+                    <a href="https://rish03abh.github.io/scientific-calculator/" class="btn">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="snake.png" alt="Snake Game" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Snake Game</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Enjoy Game ,Controls - (Arrow keys for change the
+                        direction)</p>
+                    <a href="https://rish03abh.github.io/snake-game/" class="btn">View Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View More Button -->
+    <div class="text-center mt-8">
+        <button id="toggleProjects"
+            class="flex items-center justify-center mx-auto bg-yellow-400 hover:bg-yellow-500 dark:bg-green-500 dark:hover:bg-green-600 text-gray-800 dark:text-white font-bold py-3 px-6 rounded-full transition-colors duration-300">
+            View More <i class="fas fa-chevron-down ml-2"></i>
+        </button>
+    </div>
+    </div>
+ </section>
+
+
+
+ <!-- About Me Section -->
+ <section id="about" class=" py-6 bg-white dark:bg-gray-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">About Me</h2>
+        <div class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12">
+
+            <div class="text-center 
+            
+             ">
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                    Hi, I'm Rishabh Kanungo, a passionate Full Stack Developer with a strong background in web
+                    development. I specialize in creating modern, responsive, and user-friendly web applications that
+                    deliver exceptional user experiences.
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                    With a keen eye for design and a love for coding, I enjoy turning complex problems into simple,
+                    beautiful, and intuitive solutions. My expertise includes front-end technologies like HTML, CSS,
+                    JavaScript, and React, as well as back-end technologies like Node.js, Express.js, and Database
+                    Mongodb.
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                    I am constantly learning and exploring new technologies to stay updated with the latest trends in
+                    the industry. When I'm not coding, you can find me exploring new places, reading tech blogs, or
+                    working on personal projects.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+ </section>
+
+ <!-- Resume Section -->
+ <section id="resume"
+    class="py-20 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-primary to-purple-600 dark:from-secondary dark:to-emerald-400 bg-clip-text text-transparent">
+            My Resume
+        </h2>
+        <p class="text-lg text-center text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10">
+            Explore my professional journey, skills, and experience. My resume highlights my expertise in web
+            development,
+            programming, and problem-solving. Feel free to download or view it online to learn more about my work and
+            achievements.
+        </p>
+        <div class="flex flex-col items-center justify-center space-y-6">
+            <!-- Resume Download Button -->
+            <a href="Rishabh Kanungo.pdf" download="Rishabh Kanungo.pdf" class="bg-gradient-to-r from-primary to-blue-600 dark:from-secondary dark:to-green-500 
+                      text-white font-bold py-4 px-8 rounded-lg hover:opacity-90 transform hover:-translate-y-1 
+                      transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                      focus:ring-primary dark:focus:ring-secondary">
+                <i class="fas fa-download mr-2"></i>
+                Download Resume
+            </a>
+
+            <!-- Resume Preview Button -->
+            <a href="Rishabh Kanungo.pdf" target="_blank" class="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-green-500 dark:to-yellow-500 
+                      text-white font-bold py-4 px-8 rounded-lg hover:opacity-90 transform hover:-translate-y-1 
+                      transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                      focus:ring-purple-600 dark:focus:ring-green-500">
+                <i class="fas fa-eye mr-2"></i>
+                View Resume
+            </a>
+        </div>
+    </div>
+ </section>
+
+
+ <!-- Skills -->
+
+
+ <section id="skills"
+    class="py-20 bg-gradient-to-br from-purple-900 via-purple-700 to-blue-500 dark:from-sky-400 via-blue-500 to-indigo-700">
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-16">Technical Skills</h2>
+
+        <div class="flex justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+                <!-- Languages -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-6">Languages</h3>
+                    <div class="grid grid-cols-2 gap-8">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="HTML5" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="CSS3" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="JavaScript" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="Python" />
+                    </div>
+                </div>
+
+                <!-- Frameworks & Libraries -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-6">Frameworks & Libraries</h3>
+                    <div class="grid grid-cols-2 gap-8">
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="Node.js" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="React.js" />
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original-wordmark.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="Express.js" />
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="Bootstrap" />
+                    </div>
+                </div>
+
+                <!-- Tools and Technologies -->
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-6">Tools & Technologies</h3>
+                    <div class="grid grid-cols-2 gap-8">
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt=" Github" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="MongoDB" />
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="Figma" />
+
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                            class="w-16 h-16 hover:scale-125 transition-transform duration-300" alt="VS Code" />
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+
+ <!-- Footer Section -->
+ <footer id="contact" class="bg-gray-900 text-white">
+    <!-- Main Footer -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- About Section -->
+            <div class="space-y-4">
+                <h3
+                    class="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 dark:from-secondary dark:to-emerald-400 bg-clip-text text-transparent">
+                    Rishabh Kanungo</h3>
+                <p class="text-gray-400">Full Stack Developer passionate about creating innovative web solutions and
+                    delivering exceptional user experiences.</p>
+                    <p  class="text-gray-400">I love building solutions and learning from the community. Check out my profiles below!
+
+                        </p>
+                <div class="flex space-x-4">
+                    <a href="https://www.hackerrank.com/profile/rishabhkanungo71"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">
+                        <i class="fab fa-hackerrank text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rishabh-kanungo-ab5864257/"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/Rish03abh"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_rishabh_kanungo/?hl=en"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.hackerrank.com/profile/rishabhkanungo5"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">
+                        <i class="fab fa-hackerrank text-xl"></i>
+                    </a>
+
+
+
+
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#projects"
+                            class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">Projects</a>
+                    </li>
+                    <li>
+                        <a href="#about"
+                            class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">About</a>
+                    </li>
+                    <li>
+                        <a href="#resume"
+                            class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">Resume</a>
+                    </li>
+                    <li>
+                        <a href="#skills"
+                            class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">Skills</a>
+                    </li>
+                    <li>
+                        <a href="#contact"
+                            class="text-gray-400 hover:text-primary dark:hover:text-secondary transition-colors duration-300">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold">Contact Info</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-center text-gray-400">
+                        <i class="fas fa-envelope mr-2 text-primary dark:text-secondary"></i>
+                        <a href="mailto:rishabhkanungo731@gmail.com"
+                            class="hover:text-primary dark:hover:text-secondary transition-colors duration-300">rishabhkanungo731@gmail.com</a>
+                    </li>
+                    <li class="flex items-center text-gray-400">
+                        <i class="fas fa-phone mr-2 text-primary dark:text-secondary"></i>
+                        <a href="tel:+91 8948905711"
+                            class="hover:text-primary dark:hover:text-secondary transition-colors duration-300">+91
+                            7974841379</a>
+                    </li>
+                    <li class="flex items-center text-gray-400">
+                        <i class="fas fa-map-marker-alt mr-2 text-primary dark:text-secondary"></i>
+                        <span>Kasrawad , District - Khargone , Madhya Pradesh , India </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    © 2025 Rishabh Kanungo. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <a href="#"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary text-sm transition-colors duration-300">Privacy
+                        Policy</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="#"
+                        class="text-gray-400 hover:text-primary dark:hover:text-secondary text-sm transition-colors duration-300">Terms
+                        of Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
+ </footer>
+
+
+ <script>
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+    }
+
+    // Dark Mode Toggle for Desktop and Mobile
+    document.getElementById('darkModeToggleDesktop').addEventListener('click', toggleDarkMode);
+    document.getElementById('darkModeToggleMobile').addEventListener('click', toggleDarkMode);
+
+    // Hamburger menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuLinks = mobileMenu.querySelectorAll('a');
+
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu when a link is clicked
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+    // Typing effect
+    var typed = new Typed('.role', {
+        strings: ['Full Stack Web Developer', 'Mern Stack Web Developer', 'Web Designer', 'Frontend Web Developer'],
+        typeSpeed: 50,
+        backSpeed: 50,
+        loop: true
+    });
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-slide-up');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section > div > *').forEach((el) => {
+        observer.observe(el);
+    });
+
+    document.getElementById("toggleProjects").addEventListener("click", function () {
+        const moreProjects = document.getElementById("moreProjects");
+        const button = this;
+        if (moreProjects.classList.contains("hidden")) {
+            moreProjects.classList.remove("hidden");
+            button.innerHTML = 'View Less <i class="fas fa-chevron-up ml-2"></i>';
+        } else {
+            moreProjects.classList.add("hidden");
+            button.innerHTML = 'View More <i class="fas fa-chevron-down ml-2"></i>';
+        }
+    });
+ </script>
+</body>
+
+</html>
