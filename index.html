@@ -7,6 +7,7 @@
     <title>Rishabh Kanungo - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -399,6 +400,99 @@
     </div>
  </section>
 
+    <!-- Contact Form Section -->
+<section id="contact" class="py-20 bg-gradient-to-br from-blue-100 to-sky-100 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 dark:from-secondary dark:to-emerald-400 bg-clip-text text-transparent">Get in Touch</h2>
+            <p class="text-gray-600 dark:text-gray-400">Have a question or want to collaborate? Let’s connect!</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 backdrop-blur-lg backdrop-filter">
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Name Input -->
+                    <div class="relative group">
+                        <label for="name" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                            Full Name <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="name" name="name" 
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 
+                                bg-transparent focus:outline-none focus:border-primary dark:focus:border-secondary
+                                transition-colors duration-300 peer"
+                                required
+                            >
+                            <i class="fas fa-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-primary dark:peer-focus:text-secondary transition-colors duration-300"></i>
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="relative group">
+                        <label for="email" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <input type="email" id="email" name="email" 
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 
+                                bg-transparent focus:outline-none focus:border-primary dark:focus:border-secondary
+                                transition-colors duration-300 peer"
+                                required
+                            >
+                            <i class="fas fa-envelope absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-primary dark:peer-focus:text-secondary transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subject Input -->
+                <div class="relative group">
+                    <label for="subject" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        Subject
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="subject" name="subject" 
+                            class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 
+                            bg-transparent focus:outline-none focus:border-primary dark:focus:border-secondary
+                            transition-colors duration-300 peer"
+                        >
+                        <i class="fas fa-heading absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-primary dark:peer-focus:text-secondary transition-colors duration-300"></i>
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="relative group">
+                    <label for="message" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        Message <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <textarea id="message" name="message" rows="5" 
+                            class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 
+                            bg-transparent focus:outline-none focus:border-primary dark:focus:border-secondary
+                            transition-colors duration-300 resize-none peer"
+                            required
+                        ></textarea>
+                        <i class="fas fa-comment absolute right-3 top-6 text-gray-400 peer-focus:text-primary dark:peer-focus:text-secondary transition-colors duration-300"></i>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-primary to-blue-600 dark:from-secondary dark:to-green-500 
+                        text-white font-bold py-4 px-8 rounded-lg hover:opacity-90 transform hover:-translate-y-1 
+                        transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                        focus:ring-primary dark:focus:ring-secondary"
+                    >
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
  <!-- Footer Section -->
  <footer id="contact" class="bg-gray-900 text-white">
     <!-- Main Footer -->
@@ -570,6 +664,24 @@
             moreProjects.classList.add("hidden");
             button.innerHTML = 'View More <i class="fas fa-chevron-down ml-2"></i>';
         }
+    });
+
+         document.addEventListener("DOMContentLoaded", function () {
+        emailjs.init("G4P_RUGNFBpbCqSBv"); // Replace with your actual User ID
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent page reload
+            
+            emailjs.sendForm("service_4r2b9fe", "template_k7avuhl", this)
+                .then(() => {
+                    alert("Message sent successfully!");
+                    this.reset();
+                })
+                .catch((error) => {
+                    console.error("Error sending email:", error);
+                    alert("Failed to send message. Try again.");
+                });
+        });
     });
  </script>
 </body>
