@@ -401,7 +401,7 @@
  </section>
 
     <!-- Contact Form Section -->
-<section id="contact" class="py-20 bg-gradient-to-br from-blue-100 to-sky-100 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+<section id="contactForm" class="py-20 bg-gradient-to-br from-blue-100 to-sky-100 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 dark:from-secondary dark:to-emerald-400 bg-clip-text text-transparent">Get in Touch</h2>
@@ -666,23 +666,55 @@
         }
     });
 
-         document.addEventListener("DOMContentLoaded", function () {
-        emailjs.init("G4P_RUGNFBpbCqSBv"); // Replace with your actual User ID
+    //      document.addEventListener("DOMContentLoaded", function () {
+    //     emailjs.init("G4P_RUGNFBpbCqSBv"); // Replace with your actual User ID
 
-        document.querySelector("form").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent page reload
+    //     document.querySelector("form").addEventListener("submit", function (event) {
+    //         event.preventDefault(); // Prevent page reload
             
-            emailjs.sendForm("service_4r2b9fe", "template_k7avuhl", this)
-                .then(() => {
-                    alert("Message sent successfully!");
-                    this.reset();
-                })
-                .catch((error) => {
-                    console.error("Error sending email:", error);
-                    alert("Failed to send message. Try again.");
-                });
-        });
+    //         emailjs.sendForm("service_4r2b9fe", "template_k7avuhl", this)
+    //             .then(() => {
+    //                 alert("Message sent successfully!");
+    //                 this.reset();
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error sending email:", error);
+    //                 alert("Failed to send message. Try again.");
+    //             });
+    //     });
+    // });
+
+
+     
+document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init("G4P_RUGNFBpbCqSBv"); // Initialize EmailJS with your public key
+
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Collect form data
+        const formData = {
+            to_name: "Admin", // Change this if needed
+            from_name: document.getElementById("name").value,
+            from_email: document.getElementById("email").value,
+            subject: document.getElementById("subject").value || "No Subject", // Default if empty
+            message: document.getElementById("message").value,
+        };
+
+        // Send email using EmailJS
+        emailjs.send("service_4r2b9fe", "template_k7avuhl", formData)
+            .then(function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+                alert("Your message has been sent successfully!");
+                document.getElementById("contactForm").reset(); // Reset form after success
+            }, function (error) {
+                console.log("FAILED...", error);
+                alert("Oops! Something went wrong. Please try again.");
+            });
     });
+});
+
+     
  </script>
 </body>
 
