@@ -1,0 +1,21 @@
+{
+    "name": "Rishabh Kanungo - Portfolio",
+    "short_name": "Portfolio",
+    "start_url": "https://rishabhkanungo03.netlify.app/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#333333",
+    "icons": [
+      {
+        "src": "icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
+  
