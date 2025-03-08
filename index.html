@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="manifest" href="manifest.json">
     <!-- Custom Tailwind Configuration -->
     <script>
         tailwind.config = {
@@ -716,6 +716,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("FAILED...", error);
                 alert("Oops! Something went wrong. Please try again.");
             });
+
+            self.addEventListener("install", (event) => {
+    event.waitUntil(
+        caches.open("app-cache").then((cache) => {
+            return cache.addAll(["/", "/index.html"]);
+        })
+    );
+});
+
+self.addEventListener("fetch", (event) => {
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
+});
+
         gtag('event', 'page_view', {
   page_title: document.title,
   page_location: window.location.href,
@@ -732,6 +749,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-D9T17G8CYP');
+</script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }
 </script>
 
 </body>
