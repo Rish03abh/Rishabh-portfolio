@@ -264,6 +264,43 @@
     </div>
  </section>
 
+    
+<!-- Experience Section -->
+<section id="experience" class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Experience</h2>
+  
+      <div class="relative border-l-2 border-gray-300 dark:border-gray-700 pl-6 space-y-12">
+        
+        <!-- Internship 1 -->
+        <div class="relative">
+          <span class="absolute left-[-12px] top-1 w-4 h-4 bg-white border-2 border-blue-500 rounded-full"></span>
+          <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 ml-4">
+            <div class="flex items-center mb-2">
+              <img src="logo1.png" alt="Company Logo" class="w-8 h-8 mr-3" />
+              <div>
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Mern Stack Developer Intern</h3>
+                <p class="text-gray-600 dark:text-gray-400">Ceeras IT Services</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">FEB 2025 - Present · Remote</p>
+              </div>
+            </div>
+            <a href="#" onclick="toggleDetails(this)" class="text-blue-600 dark:text-blue-400 hover:underline">Show More</a>
+            <div class="mt-4 hidden">
+              <ul class="list-disc list-inside text-gray-600 dark:text-gray-300">
+                 <li>Developed full-stack web applications using MongoDB, Express.js, React.js, and Node.js (MERN).</li>
+                 <li>Built responsive and reusable React components styled with Tailwind CSS.</li>
+                 <li>Created secure RESTful APIs and implemented user authentication using JWT.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+       
+  
+      </div>
+    </div>
+  </section>
+
 
 
  <!-- About me -->
@@ -735,6 +772,15 @@ document.addEventListener("DOMContentLoaded", function () {
   gtag('js', new Date());
   gtag('config', 'G-D9T17G8CYP');
 </script>
+
+    <script>
+    function toggleDetails(link) {
+      event.preventDefault();
+      const details = link.nextElementSibling;
+      details.classList.toggle('hidden');
+      link.textContent = details.classList.contains('hidden') ? 'Show More' : 'Show Less';
+    }
+  </script>
 
 </body>
 
